@@ -29,7 +29,7 @@ def process_img(original_image):
     processed_img = cv2.Canny(processed_img, threshold1=200, threshold2=300)
     processed_img = cv2.GaussianBlur(processed_img, (5, 5), 0)
 
-    vertices = np.array([[10, 500], [10, 300], [300, 200], [500, 200], [800, 300], [800, 500]])
+    vertices = np.array([[24, 800], [24, 480], [720, 320], [1200, 320], [1920, 480], [1920, 800]])  # [x2.4, x1.6]
     processed_img = roi(processed_img, [vertices])
 
     lines = cv2.HoughLinesP(processed_img, 1, np.pi / 180, 180, np.array([]), 100, 5)
@@ -102,9 +102,9 @@ for i in list(range(4))[::-1]:
     time.sleep(1)
 
 while (True):
-    screen = np.array(ImageGrab.grab(bbox=(0, 40, 800, 640)))
+    screen = np.array(ImageGrab.grab(bbox=(0, 40, 1920, 1080)))  # (0, 40, 800, 640)
     new_screen, original_image, m1, m2 = process_img(screen)
-    cv2.imshow('Lines', cv2.cvtColor(new_screen, cv2.COLOR_BGR2RGB))
+    # cv2.imshow('Lines', cv2.cvtColor(new_screen, cv2.COLOR_BGR2RGB))
     cv2.imshow('Lanes', cv2.cvtColor(original_image, cv2.COLOR_BGR2RGB))
 
     if m1 < 0 and m2 < 0:
